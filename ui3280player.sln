@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ui3280player", "ui3280player.vcxproj", "{BB376808-648B-3C05-A968-60F2E8D43C83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB376808-648B-3C05-A968-60F2E8D43C83}.Debug|x86.ActiveCfg = Debug|Win32
+		{BB376808-648B-3C05-A968-60F2E8D43C83}.Debug|x86.Build.0 = Debug|Win32
+		{BB376808-648B-3C05-A968-60F2E8D43C83}.Release|x86.ActiveCfg = Release|Win32
+		{BB376808-648B-3C05-A968-60F2E8D43C83}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDA42F39-A79F-4F6B-B939-262870812EFB}
+	EndGlobalSection
+EndGlobal
