@@ -31,7 +31,6 @@ protected:
 
 private slots:
     void initForm();
-
     void on_btn_close_clicked();
     void on_btn_file_clicked();
     void vp_playcontrol();
@@ -43,6 +42,7 @@ private slots:
     void checkPosition(qint64 x);
     void getDuration(qint64 x);
     void slider_changed();
+
 signals: void vp_file_opened();
          void sliderwork();
          void vi_stop();

@@ -14,7 +14,9 @@ TEMPLATE    = app
 SOURCES     += main.cpp \
     edit_form.cpp \
     ui3280player.cpp \
-    videoplayer.cpp
+    videoplayer.cpp \
+    mythread.cpp \
+    playWave.cpp
 SOURCES     += iconhelper.cpp
 SOURCES     += flatui.cpp
 SOURCES     += appinit.cpp
@@ -24,7 +26,9 @@ HEADERS     += \
     edit_form.h \
     edit_form.h \
     ui3280player.h \
-    videoplayer.h
+    videoplayer.h \
+    mythread.h \
+    playWave.hpp
 HEADERS     += iconhelper.h
 HEADERS     += flatui.h
 HEADERS     += appinit.h

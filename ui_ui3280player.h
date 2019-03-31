@@ -189,7 +189,7 @@ public:
         label_4->setMaximumSize(QSize(60, 30));
         QFont font;
         font.setFamily(QString::fromUtf8("\345\276\256\350\273\237\346\255\243\351\273\221\351\253\224"));
-        font.setPointSize(11);
+        font.setPointSize(9);
         font.setBold(true);
         font.setWeight(75);
         label_4->setFont(font);
@@ -243,12 +243,7 @@ public:
         label_3->setSizePolicy(sizePolicy4);
         label_3->setMinimumSize(QSize(110, 40));
         label_3->setMaximumSize(QSize(100, 40));
-        QFont font2;
-        font2.setFamily(QString::fromUtf8("\345\276\256\350\273\237\346\255\243\351\273\221\351\253\224"));
-        font2.setPointSize(10);
-        font2.setBold(true);
-        font2.setWeight(75);
-        label_3->setFont(font2);
+        label_3->setFont(font);
 
         verticalLayout_4->addWidget(label_3);
 
@@ -263,6 +258,11 @@ public:
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         label1 = new QLabel(WidgetInfoBox);
         label1->setObjectName(QString::fromUtf8("label1"));
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("\345\276\256\350\273\237\346\255\243\351\273\221\351\253\224"));
+        font2.setPointSize(10);
+        font2.setBold(true);
+        font2.setWeight(75);
         label1->setFont(font2);
 
         horizontalLayout_7->addWidget(label1);
@@ -347,16 +347,16 @@ public:
         widgetLyrics->setObjectName(QString::fromUtf8("widgetLyrics"));
         verticalLayout_7 = new QVBoxLayout(widgetLyrics);
         verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
-        lyrics_display = new QTextBrowser(widgetLyrics);
+
+        horizontalLayout_9->addWidget(widgetLyrics);
+
+        lyrics_display = new QTextBrowser(widgetMain);
         lyrics_display->setObjectName(QString::fromUtf8("lyrics_display"));
         lyrics_display->setMinimumSize(QSize(300, 0));
         lyrics_display->setMaximumSize(QSize(400, 16777215));
         lyrics_display->setAcceptRichText(true);
 
-        verticalLayout_7->addWidget(lyrics_display);
-
-
-        horizontalLayout_9->addWidget(widgetLyrics);
+        horizontalLayout_9->addWidget(lyrics_display);
 
         horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -439,7 +439,7 @@ public:
         volumeSlider = new QSlider(widgetBottom);
         volumeSlider->setObjectName(QString::fromUtf8("volumeSlider"));
         volumeSlider->setMaximumSize(QSize(100, 16777215));
-        volumeSlider->setSliderPosition(20);
+        volumeSlider->setSliderPosition(99);
         volumeSlider->setOrientation(Qt::Horizontal);
 
         horizontalLayout->addWidget(volumeSlider);
@@ -477,6 +477,23 @@ public:
         Song->setText(QApplication::translate("UI3280Player", "TextLabel", nullptr));
         Album_tag->setText(QApplication::translate("UI3280Player", "Album:", nullptr));
         Album->setText(QApplication::translate("UI3280Player", "TextLabel", nullptr));
+        lyrics_display->setHtml(QApplication::translate("UI3280Player", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'PMingLiU'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test1</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test2</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test3</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test1</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test2</p>\n"
+"<p style=\" mar"
+                        "gin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test3</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test1</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test2</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test3</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test1</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test2</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">test3</p></body></html>", nullptr));
         btnPre->setText(QString());
         btnPlay->setText(QString());
         btnStop->setText(QString());

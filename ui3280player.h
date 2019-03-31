@@ -6,6 +6,14 @@
 #include "edit_form.h"
 #include "videoplayer.h"
 #include <QSlider>
+#include <QtCore>
+#include <QStringList>
+#include <QWidget>
+#include <QString>
+#include <QMessageBox>
+#include <iostream>
+#include "playWave.hpp"
+
 namespace Ui {
 class UI3280Player;
 }
@@ -16,22 +24,34 @@ class UI3280Player : public QDialog
 public:
     static QString a;
     static bool playing;
+
+
 public:
     explicit UI3280Player(QWidget *parent = nullptr);
     ~UI3280Player();
 
+
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
+    void lyrics_display();
 
 private:
     Ui::UI3280Player *ui;
     Edit_Form *editform;
     videoplayer *videoplayer1;
+    QTimer *myTimer;
+    int cnt=0,test_ff=0;
+public:
+    WavePlayer *kernel;
+    std::string songName;
+    std::string tempName;
+    int static d3;
 
 private slots:
     void initForm();
     void initStyle();
     void initList();
+    void showTime();
 
 private slots:
 
@@ -49,10 +69,12 @@ private slots:
     void vp_file_opened2();
     void ProvideContextMenu(const QPoint &);
     void test(int value);
-     void sliderwork();
-     void on_volumeSlider_valueChanged(int value);
-     void vi_stop();
-     void on_slider_sliderReleased();
+    void sliderwork();
+    void on_volumeSlider_valueChanged(int value);
+    void vi_stop();
+    void on_slider_sliderReleased();
+    void on_doneWork();
+
 
 signals:
     void btnPlay_clicked();

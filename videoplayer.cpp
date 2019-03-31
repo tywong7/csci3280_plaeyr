@@ -84,16 +84,15 @@ void videoplayer::checkPosition(qint64 x)
     emit sliderwork();
 }
 void videoplayer::slider_changed(){
-
-
-            player->setPosition(vp_userslided);
-            player->play();
+   player->setPosition(vp_userslided);
+   player->play();
 }
 void videoplayer::getDuration(qint64 x)
 {
     qDebug()<<"duration";
     totalTime= QString("%1").arg((x / 60000)% 60,2,10,QChar('0'))+":"+QString("%1").arg(((x / 1000) % 60),2,10,QChar('0'));
     vp_durationval=x;
+
     vp_duration=(x / 60000)% 60*60+((x / 1000) % 60);
     qDebug()<<vp_duration;
 

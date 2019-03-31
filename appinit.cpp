@@ -3,7 +3,7 @@
 #include "qevent.h"
 #include "qwidget.h"
 //reference:http://www.qtcn.org/bbs/read-htm-tid-63655-ds-1-page-1.html?fbclid=IwAR3Eg4TgKdLw2rFd4wM4QQNNPRVs9eEnxT62djkBBrwkW2oUYhjoxktxbHE#184041
-
+#pragma comment( lib, "Winmm.lib" )
 AppInit *AppInit::self = nullptr;
 AppInit::AppInit(QObject *parent) : QObject(parent)
 {

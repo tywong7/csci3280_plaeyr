@@ -5,6 +5,7 @@
 #include "qapplication.h"
 #include "edit_form.h"
 #include "videoplayer.h"
+#pragma comment( lib, "Winmm.lib" )
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

@@ -2,12 +2,16 @@
 #include "ui_ui3280player.h"
 #include "iconhelper.h"
 #include "flatui.h"
-
+#include <QTime>
+#pragma comment( lib, "Winmm.lib" )
 #pragma execution_character_set("utf-8")
 static bool max=false;
- bool UI3280Player::playing=false;
+bool UI3280Player::playing=false;
 static bool mute=false;
 QString UI3280Player::a="";
+static bool videoplayer_opened=false;
+int UI3280Player::d3=0;
+
 
 UI3280Player::UI3280Player(QWidget *parent) : QDialog(parent), ui(new Ui::UI3280Player)
 {
@@ -15,9 +19,19 @@ UI3280Player::UI3280Player(QWidget *parent) : QDialog(parent), ui(new Ui::UI3280
     this->initForm();
     this->initStyle();
     this->initList();
+    kernel = new WavePlayer(this);
+    connect(kernel,SIGNAL(doneWork()),this,SLOT(on_doneWork()));
+
+    connect(this,SIGNAL(btnPlay_clicked()),kernel,SLOT(onplayclicked()));
+     connect(this,SIGNAL( btnvol_clicked()),kernel,SLOT(on_vol_move()));
+
     ui->listWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->listWidget, SIGNAL(customContextMenuRequested(const QPoint &)),
             this, SLOT(ProvideContextMenu(const QPoint &)));
+    myTimer = new QTimer(this);
+
+
+    connect(myTimer,SIGNAL(timeout()),this,SLOT(showTime()));
 
 
 }
@@ -121,13 +135,39 @@ void UI3280Player::initList()
 //place to add data
     QString song = "Hello", singer="Adele";
     ui->listWidget->addItem(singer+" - "+ song);
-     ui->listWidget->addItem("test");
-      ui->listWidget->addItem("==");
+    ui->listWidget->addItem("daan2");
+    ui->listWidget->addItem("heartache");
+    ui->listWidget->addItem("numb");
 
 
 }
 
+void UI3280Player::showTime(){
+    if (kernel->getPlayerState()!=0){
+    cnt++;
+    qDebug()<<cnt;
 
+
+    lyrics_display();
+    sliderwork();
+    }
+}
+
+void UI3280Player::lyrics_display(){
+    for(int a=0;a<10;a++){
+        QTextCursor cursor(ui->lyrics_display->document()->findBlockByLineNumber(a));
+        QTextBlockFormat TBF = cursor.blockFormat();
+        TBF.setBackground(QBrush(Qt::transparent));
+        cursor.setBlockFormat(TBF);
+    }
+
+    QTextCursor cursor1(ui->lyrics_display->document()->findBlockByLineNumber(cnt));
+    QTextBlockFormat TBF1 = cursor1.blockFormat();
+    TBF1.setBackground(QBrush(Qt::yellow));
+    cursor1.setBlockFormat(TBF1);
+    ui->lyrics_display->setTextCursor(cursor1);
+
+}
 void UI3280Player::on_btn_Min_clicked()
 {
     showMinimized();
@@ -143,6 +183,7 @@ void UI3280Player::on_btn_Max_clicked()
 
 void UI3280Player::on_btn_Close_clicked()
 {
+    emit btnPlay_clicked();
     close();
 }
 
@@ -158,25 +199,52 @@ void UI3280Player::on_btnStop_clicked()
     ui->Singer->setText("");
     ui->Song->setText("");
     ui->Album->setText("");
+    myTimer->stop();
+    cnt=0;
+
+    ui->labTimePlay->setText("00:00");
+    ui->labTimeAll->setText("00:00");
+    kernel->stopPlaying();
 
     emit btnStop_clicked();
 
 
-    ui->labTimePlay->setText("00:00");
-    ui->labTimeAll->setText("00:00");
 }
 
 void UI3280Player::on_btnPlay_clicked()
 {
-
+    if (videoplayer_opened){
    if (UI3280Player::playing)
         IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04c), 13);
    else
        IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04b), 13);
 
    UI3280Player::playing=!UI3280Player::playing;
+    }
+    else {
+        if (kernel->getPlayerState()==0&&videoplayer_opened==false){
+            IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04c), 13);
+             kernel->playMusic(tempName);
+             ui->Song->setText(QString::fromUtf8(tempName.c_str()));
+             qDebug()<<193;
+        }
+        else if (kernel->getPlayerState()==1&&videoplayer_opened==false)
+        {
+            IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04b), 13);
+            qDebug()<<197;
+            myTimer->stop();
+             emit btnPlay_clicked();
+        }
+        else if (kernel->getPlayerState()==2&&videoplayer_opened==false)
+             {
+            IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04c), 13);
+            qDebug()<<200;
+            myTimer->start();
+             emit btnPlay_clicked();
+        }
+    }
 
-   emit btnPlay_clicked();
+
 }
 
 void UI3280Player::on_btnNext_clicked()
@@ -201,8 +269,8 @@ void UI3280Player::on_volumeBtn_clicked()
         IconHelper::Instance()->setIcon(ui->volumeBtn, QChar(0xf026), 13);
     }
     else {IconHelper::Instance()->setIcon(ui->volumeBtn, QChar(0xf028), 13);
-    ui->volumeSlider->setValue(20);
-    videoplayer::vp_vol=20;
+    ui->volumeSlider->setValue(99);
+    videoplayer::vp_vol=99;
     }
 
     mute=!mute;
@@ -218,12 +286,48 @@ void UI3280Player::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
     IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04c), 13);
     playing=true;
+    sliderwork();
+    ui->Song->setText(item->text());
+    songName=(const char *)item->text().toLocal8Bit();
 
-    ui->Singer->setText(item->text());
+
+    qDebug()<<kernel->getPlayerState();
+    tempName="music/"+songName+".wav";
+    songName=tempName;
+    std::string dedmo="music/numb.wav";
+    if (kernel->getPlayerState()==1||kernel->getPlayerState()==2){
+
+        kernel->stopPlaying();
+        myTimer->stop();
+    }
+    else {
+        kernel->playMusic(songName);
+        myTimer->start(1000);
+        cnt=0;
+        songName.clear();
+
+    };
+
+
+
 }
 
+void UI3280Player::on_doneWork(){
+
+    qDebug()<<"whatthefuck";
+     qDebug()<<kernel->getPlayerState();
+    kernel->playMusic(songName);
+    qDebug()<<"whatthefuck";
+    cnt=0;
+    if (kernel->getPlayerState()!=0){
+        myTimer->start();
+        sliderwork();
+        songName.clear();
+    }
+}
 void UI3280Player::on_btn_Video_clicked()
 {
+    videoplayer_opened=true;
     videoplayer1= new videoplayer(this);
     videoplayer1->show();
 
@@ -243,9 +347,23 @@ void UI3280Player::test(int value){
     qDebug()<<value;
 }
 void UI3280Player::sliderwork(){
-    ui->labTimePlay->setText(videoplayer::nowTime);
-    ui->labTimeAll->setText(videoplayer::totalTime);
-    ui->slider->setValue(videoplayer::vp_current);
+    if (videoplayer_opened) {
+        ui->labTimePlay->setText(videoplayer::nowTime);
+        ui->labTimeAll->setText(videoplayer::totalTime);
+        ui->slider->setValue(videoplayer::vp_current);
+    }
+    else {
+        QString nowle=QString("%1").arg(cnt/60,2,10, QChar('0'))+":"+QString("%1").arg(cnt%60,2,10,QChar('0'));
+        ui->labTimePlay->setText(nowle);
+        ui->labTimeAll->setText(WavePlayer::totalle);
+       test_ff=WavePlayer::duration;
+        int idk=test_ff+1;
+        idk+=0;
+
+       ui->slider->setValue(cnt*100/idk);
+
+    }
+
 
 }
 
@@ -293,9 +411,13 @@ void UI3280Player::on_volumeSlider_valueChanged(int value)
 {
     if (value==0)
         IconHelper::Instance()->setIcon(ui->volumeBtn, QChar(0xf026), 13);
-
         else IconHelper::Instance()->setIcon(ui->volumeBtn, QChar(0xf028), 13);
-    videoplayer::vp_vol=value;
+     if (videoplayer_opened){
+        videoplayer::vp_vol=value;
+     }
+
+      d3=value;
+     //std::cout<<d3<<std::endl;
     emit btnvol_clicked();
 }
 
