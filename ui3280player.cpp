@@ -154,14 +154,14 @@ void UI3280Player::showTime(){
 }
 
 void UI3280Player::lyrics_display(){
-    for(int a=0;a<10;a++){
+    for(int a=0;a<cnt;a++){
         QTextCursor cursor(ui->lyrics_display->document()->findBlockByLineNumber(a));
         QTextBlockFormat TBF = cursor.blockFormat();
         TBF.setBackground(QBrush(Qt::transparent));
         cursor.setBlockFormat(TBF);
     }
 
-    QTextCursor cursor1(ui->lyrics_display->document()->findBlockByLineNumber(cnt));
+    QTextCursor cursor1(ui->lyrics_display->document()->findBlockByLineNumber(cnt-1));
     QTextBlockFormat TBF1 = cursor1.blockFormat();
     TBF1.setBackground(QBrush(Qt::yellow));
     cursor1.setBlockFormat(TBF1);
@@ -213,15 +213,17 @@ void UI3280Player::on_btnStop_clicked()
 
 void UI3280Player::on_btnPlay_clicked()
 {
-    if (videoplayer_opened){
+  if (videoplayer_opened){
    if (UI3280Player::playing)
         IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04c), 13);
    else
        IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04b), 13);
 
    UI3280Player::playing=!UI3280Player::playing;
+   emit btnPlay_clicked();
     }
     else {
+
         if (kernel->getPlayerState()==0&&videoplayer_opened==false){
             IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04c), 13);
              kernel->playMusic(tempName);

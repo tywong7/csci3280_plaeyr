@@ -116,7 +116,7 @@ void videoplayer::on_btn_file_clicked()
 
     emit vp_file_opened();
 
-    player->setVolume(20);
+    player->setVolume(100);
 
 
 
