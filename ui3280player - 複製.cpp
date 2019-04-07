@@ -11,23 +11,19 @@ static bool mute=false;
 QString UI3280Player::a="";
 static bool videoplayer_opened=false;
 int UI3280Player::d3=0;
-int UI3280Player::index=0;
-QStringList UI3280Player::songnamelist;
-QStringList UI3280Player::singerlist;
-QStringList  UI3280Player::albumlist;
-QStringList  UI3280Player::pathlist;
+
+
 UI3280Player::UI3280Player(QWidget *parent) : QDialog(parent), ui(new Ui::UI3280Player)
 {
     ui->setupUi(this);
     this->initForm();
     this->initStyle();
     this->initList();
-    this->search_bar();
     kernel = new WavePlayer(this);
     connect(kernel,SIGNAL(doneWork()),this,SLOT(on_doneWork()));
 
     connect(this,SIGNAL(btnPlay_clicked()),kernel,SLOT(onplayclicked()));
-    connect(this,SIGNAL( btnvol_clicked()),kernel,SLOT(on_vol_move()));
+     connect(this,SIGNAL( btnvol_clicked()),kernel,SLOT(on_vol_move()));
 
     ui->listWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(ui->listWidget, SIGNAL(customContextMenuRequested(const QPoint &)),
@@ -140,7 +136,8 @@ void UI3280Player::initList()
     QString song = "Hello", singer="Adele";
     ui->listWidget->addItem(singer+" - "+ song);
     ui->listWidget->addItem("daan2");
-
+    ui->listWidget->addItem("heartache");
+    ui->listWidget->addItem("numb");
 
 
 }
@@ -157,24 +154,19 @@ void UI3280Player::showTime(){
 }
 
 void UI3280Player::lyrics_display(){
-
-
-    qDebug()<<time_value[lyrics_index]<<cnt-1;
-    if (cnt-1==time_value[lyrics_index]){
-        for(int a=0;a<lyrics_index;a++){
-            QTextCursor cursor(ui->lyrics_display->document()->findBlockByLineNumber(a));
-            QTextBlockFormat TBF = cursor.blockFormat();
-            TBF.setBackground(QBrush(Qt::transparent));
-            cursor.setBlockFormat(TBF);
-        }
-
-        QTextCursor cursor1(ui->lyrics_display->document()->findBlockByLineNumber(lyrics_index));
-        QTextBlockFormat TBF1 = cursor1.blockFormat();
-        TBF1.setBackground(QBrush(Qt::yellow));
-        cursor1.setBlockFormat(TBF1);
-        ui->lyrics_display->setTextCursor(cursor1);
-        lyrics_index++;
+    for(int a=0;a<cnt;a++){
+        QTextCursor cursor(ui->lyrics_display->document()->findBlockByLineNumber(a));
+        QTextBlockFormat TBF = cursor.blockFormat();
+        TBF.setBackground(QBrush(Qt::transparent));
+        cursor.setBlockFormat(TBF);
     }
+
+    QTextCursor cursor1(ui->lyrics_display->document()->findBlockByLineNumber(cnt-1));
+    QTextBlockFormat TBF1 = cursor1.blockFormat();
+    TBF1.setBackground(QBrush(Qt::yellow));
+    cursor1.setBlockFormat(TBF1);
+    ui->lyrics_display->setTextCursor(cursor1);
+
 }
 void UI3280Player::on_btn_Min_clicked()
 {
@@ -194,66 +186,11 @@ void UI3280Player::on_btn_Close_clicked()
     emit btnPlay_clicked();
     close();
 }
-void UI3280Player::search_bar()
-{
-    pathlist.clear();
-    songnamelist.clear();
-    singerlist.clear();
-    albumlist.clear();
 
-    ui->listWidget->clear();
-    QString searchtext = ui->lineEdit->text();
-    QStringList searchlist;
-    if(searchtext.indexOf(" ",0)!=-1){
-      searchlist = searchtext.split(' ', QString::SkipEmptyParts);
-    }
-    else{
-        searchlist.append(searchtext);
-    }
-    QStringList txtfile;
-    QString fullpath = "music_database.txt";
-    QFile file(fullpath);
-    if (!file.exists()) {
-        qDebug()<<"database not found.";
-        return;
-    }
-    file.open(QIODevice::ReadOnly);
-    QTextStream in(&file);
-    while(!file.atEnd()){
-        txtfile.append(file.readLine());
-    }
-    QList<int> flaglist;
-    for (int i=0;i<txtfile.size();i++){
-        flaglist.append(0);
-        for(int x=0;x<searchlist.size();x++){
-            if(txtfile[i].indexOf(searchlist[x],0,Qt::CaseInsensitive)!=-1){
-                flaglist[i]=1;
-
-            }
-        }
-    }
-
-    for(int q=0; q<flaglist.size();q++){
-        pathlist.append(txtfile[q].split(",").at(0));
-        songnamelist.append(txtfile[q].split(",").at(1));
-        singerlist.append(txtfile[q].split(",").at(2));
-        albumlist.append(txtfile[q].split(",").at(3));
-
-    }
-
-    for(int w=0;w<flaglist.size();w++){
-        if(flaglist[w]==1){
-             ui->listWidget->addItem(songnamelist[w]);
-        }
-    }
-
-}
 void UI3280Player::on_btnSearch_clicked()
 {
-    search_bar();
 
 }
-
 
 void UI3280Player::on_btnStop_clicked()
 {
@@ -344,79 +281,21 @@ void UI3280Player::on_volumeBtn_clicked()
 }
 
 
-void UI3280Player::lyrics_handler(QString path){
-	ui->lyrics_display->clear();
-    QStringList txtfile;
-    QString fullpath = path+".lrc";
-    QFile file(fullpath);
-    if (!file.exists()) {
-        qDebug()<<"lyrics not found.";
-        return;
-    }
 
-    file.open(QIODevice::ReadOnly);
-    QTextStream in(&file);
-    while(!file.atEnd()){
-        txtfile.append(file.readLine());
-    }
-    QStringList time;
-    QStringList lyrics;
-    lyrics.clear();
-    for (int i=0;i<txtfile.length();i++){
-        time.append(txtfile[i].split("]").at(0));
-        lyrics.append(txtfile[i].split("]").at(1));
-
-    }
-	
-    for (int a=0;a<time.length();a++){
-        QString str1 =time[a].mid(1,5);
-        qDebug()<<"test"<<str1;
-        QTime time = QTime::fromString(str1, "mm:ss");
-        time_value[a]=QTime(0,0).secsTo(time);
-
-    }
-    for(int a=0;a<lyrics.length();a++){
-        QTextCursor cursor(ui->lyrics_display->document()->findBlockByLineNumber(a));
-        QTextBlockFormat TBF = cursor.blockFormat();
-        cursor.select(QTextCursor::WordUnderCursor);
-        cursor.insertText(lyrics[a]);
-        TBF.setBackground(QBrush(Qt::transparent));
-        cursor.setBlockFormat(TBF);
-    }
-
-}
 
 
 void UI3280Player::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
-
-
-    lyrics_index=0;
-
     IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04c), 13);
     playing=true;
     sliderwork();
     ui->Song->setText(item->text());
-    QString song=item->text();
-    for (int i=0;i<songnamelist.length();i++){
-        if (songnamelist[i]==song){
-            ui->Singer->setText(singerlist[i]);
-            ui->Album->setText(albumlist[i]);
-            index=i;
-            break;
-        }
-    }
-
-    songName=(const char *)pathlist[index].toLocal8Bit();
+    songName=(const char *)item->text().toLocal8Bit();
 
 
     qDebug()<<kernel->getPlayerState();
-    tempName="music/"+songName;
-    std::cout<<tempName<<std::endl;
-
-    lyrics_handler(songnamelist[index]);
+    tempName="music/"+songName+".wav";
     songName=tempName;
-
     std::string dedmo="music/numb.wav";
     if (kernel->getPlayerState()==1||kernel->getPlayerState()==2){
 
@@ -513,7 +392,7 @@ void UI3280Player::ProvideContextMenu(const QPoint &pos)
 
             {
                 UI3280Player::a=ui->listWidget->item(ui->listWidget->indexAt(pos).row())->text();
-                index=ui->listWidget->indexAt(pos).row();
+
                 editform= new Edit_Form(this);
                 editform->show();
 
