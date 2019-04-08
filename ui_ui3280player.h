@@ -31,15 +31,18 @@ class Ui_UI3280Player
 public:
     QVBoxLayout *verticalLayout;
     QWidget *widgetTitle;
-    QHBoxLayout *horizontalLayout_2;
+    QHBoxLayout *horizontalLayout_11;
     QLabel *labIco;
     QLabel *labTitle;
+    QHBoxLayout *horizontalLayout_2;
+    QPushButton *client_btn;
+    QPushButton *server_btn;
     QWidget *widgetMenu;
     QGridLayout *gridLayout_2;
-    QPushButton *btn_Max;
     QPushButton *btn_Min;
     QPushButton *btn_Close;
     QPushButton *btn_Video;
+    QPushButton *btn_Max;
     QWidget *widgetMain;
     QVBoxLayout *verticalLayout_3;
     QHBoxLayout *searchBox;
@@ -89,7 +92,7 @@ public:
     {
         if (UI3280Player->objectName().isEmpty())
             UI3280Player->setObjectName(QString::fromUtf8("UI3280Player"));
-        UI3280Player->resize(824, 600);
+        UI3280Player->resize(917, 600);
         UI3280Player->setSizeGripEnabled(false);
         verticalLayout = new QVBoxLayout(UI3280Player);
         verticalLayout->setSpacing(0);
@@ -97,28 +100,48 @@ public:
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         widgetTitle = new QWidget(UI3280Player);
         widgetTitle->setObjectName(QString::fromUtf8("widgetTitle"));
+        widgetTitle->setEnabled(true);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(widgetTitle->sizePolicy().hasHeightForWidth());
+        widgetTitle->setSizePolicy(sizePolicy);
+        widgetTitle->setMinimumSize(QSize(0, 54));
         widgetTitle->setMaximumSize(QSize(16777215, 40));
-        horizontalLayout_2 = new QHBoxLayout(widgetTitle);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(10, 0, 0, 0);
+        horizontalLayout_11 = new QHBoxLayout(widgetTitle);
+        horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
         labIco = new QLabel(widgetTitle);
         labIco->setObjectName(QString::fromUtf8("labIco"));
         labIco->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_2->addWidget(labIco);
+        horizontalLayout_11->addWidget(labIco);
 
         labTitle = new QLabel(widgetTitle);
         labTitle->setObjectName(QString::fromUtf8("labTitle"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(labTitle->sizePolicy().hasHeightForWidth());
-        labTitle->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(labTitle->sizePolicy().hasHeightForWidth());
+        labTitle->setSizePolicy(sizePolicy1);
         labTitle->setStyleSheet(QString::fromUtf8(""));
         labTitle->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        horizontalLayout_2->addWidget(labTitle);
+        horizontalLayout_11->addWidget(labTitle);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        client_btn = new QPushButton(widgetTitle);
+        client_btn->setObjectName(QString::fromUtf8("client_btn"));
+
+        horizontalLayout_2->addWidget(client_btn);
+
+        server_btn = new QPushButton(widgetTitle);
+        server_btn->setObjectName(QString::fromUtf8("server_btn"));
+
+        horizontalLayout_2->addWidget(server_btn);
+
+
+        horizontalLayout_11->addLayout(horizontalLayout_2);
 
         widgetMenu = new QWidget(widgetTitle);
         widgetMenu->setObjectName(QString::fromUtf8("widgetMenu"));
@@ -126,22 +149,13 @@ public:
         gridLayout_2->setSpacing(0);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
-        btn_Max = new QPushButton(widgetMenu);
-        btn_Max->setObjectName(QString::fromUtf8("btn_Max"));
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Expanding);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(btn_Max->sizePolicy().hasHeightForWidth());
-        btn_Max->setSizePolicy(sizePolicy1);
-        btn_Max->setMinimumSize(QSize(40, 30));
-        btn_Max->setMaximumSize(QSize(50, 16777215));
-
-        gridLayout_2->addWidget(btn_Max, 0, 3, 1, 1);
-
         btn_Min = new QPushButton(widgetMenu);
         btn_Min->setObjectName(QString::fromUtf8("btn_Min"));
-        sizePolicy1.setHeightForWidth(btn_Min->sizePolicy().hasHeightForWidth());
-        btn_Min->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(btn_Min->sizePolicy().hasHeightForWidth());
+        btn_Min->setSizePolicy(sizePolicy2);
         btn_Min->setMinimumSize(QSize(40, 30));
         btn_Min->setMaximumSize(QSize(50, 16777215));
 
@@ -149,8 +163,8 @@ public:
 
         btn_Close = new QPushButton(widgetMenu);
         btn_Close->setObjectName(QString::fromUtf8("btn_Close"));
-        sizePolicy1.setHeightForWidth(btn_Close->sizePolicy().hasHeightForWidth());
-        btn_Close->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(btn_Close->sizePolicy().hasHeightForWidth());
+        btn_Close->setSizePolicy(sizePolicy2);
         btn_Close->setMinimumSize(QSize(40, 30));
         btn_Close->setCursor(QCursor(Qt::ArrowCursor));
         btn_Close->setFocusPolicy(Qt::NoFocus);
@@ -159,15 +173,24 @@ public:
 
         btn_Video = new QPushButton(widgetMenu);
         btn_Video->setObjectName(QString::fromUtf8("btn_Video"));
-        sizePolicy1.setHeightForWidth(btn_Video->sizePolicy().hasHeightForWidth());
-        btn_Video->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(btn_Video->sizePolicy().hasHeightForWidth());
+        btn_Video->setSizePolicy(sizePolicy2);
         btn_Video->setMinimumSize(QSize(40, 30));
         btn_Video->setMaximumSize(QSize(50, 16777215));
 
         gridLayout_2->addWidget(btn_Video, 0, 0, 1, 1);
 
+        btn_Max = new QPushButton(widgetMenu);
+        btn_Max->setObjectName(QString::fromUtf8("btn_Max"));
+        sizePolicy2.setHeightForWidth(btn_Max->sizePolicy().hasHeightForWidth());
+        btn_Max->setSizePolicy(sizePolicy2);
+        btn_Max->setMinimumSize(QSize(40, 30));
+        btn_Max->setMaximumSize(QSize(50, 16777215));
 
-        horizontalLayout_2->addWidget(widgetMenu);
+        gridLayout_2->addWidget(btn_Max, 0, 3, 1, 1);
+
+
+        horizontalLayout_11->addWidget(widgetMenu);
 
 
         verticalLayout->addWidget(widgetTitle);
@@ -181,11 +204,11 @@ public:
         searchBox->setObjectName(QString::fromUtf8("searchBox"));
         label_4 = new QLabel(widgetMain);
         label_4->setObjectName(QString::fromUtf8("label_4"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
-        label_4->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy3);
         label_4->setMinimumSize(QSize(65, 30));
         label_4->setMaximumSize(QSize(60, 30));
         QFont font;
@@ -199,11 +222,11 @@ public:
 
         lineEdit = new QLineEdit(widgetMain);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
-        lineEdit->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(lineEdit->sizePolicy().hasHeightForWidth());
+        lineEdit->setSizePolicy(sizePolicy4);
         lineEdit->setMinimumSize(QSize(0, 40));
         QFont font1;
         font1.setPointSize(12);
@@ -216,8 +239,8 @@ public:
 
         btnSearch = new QPushButton(widgetMain);
         btnSearch->setObjectName(QString::fromUtf8("btnSearch"));
-        sizePolicy2.setHeightForWidth(btnSearch->sizePolicy().hasHeightForWidth());
-        btnSearch->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(btnSearch->sizePolicy().hasHeightForWidth());
+        btnSearch->setSizePolicy(sizePolicy3);
         btnSearch->setMinimumSize(QSize(40, 40));
         btnSearch->setMaximumSize(QSize(40, 40));
 
@@ -239,11 +262,11 @@ public:
         verticalLayout_4->setSizeConstraint(QLayout::SetFixedSize);
         label_3 = new QLabel(WidgetInfoBox);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        QSizePolicy sizePolicy4(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
-        label_3->setSizePolicy(sizePolicy4);
+        QSizePolicy sizePolicy5(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy5);
         label_3->setMinimumSize(QSize(110, 40));
         label_3->setMaximumSize(QSize(100, 40));
         label_3->setFont(font);
@@ -396,11 +419,11 @@ public:
 
         btnStop = new QPushButton(widgetBottom);
         btnStop->setObjectName(QString::fromUtf8("btnStop"));
-        QSizePolicy sizePolicy5(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy5.setHorizontalStretch(35);
-        sizePolicy5.setVerticalStretch(35);
-        sizePolicy5.setHeightForWidth(btnStop->sizePolicy().hasHeightForWidth());
-        btnStop->setSizePolicy(sizePolicy5);
+        QSizePolicy sizePolicy6(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy6.setHorizontalStretch(35);
+        sizePolicy6.setVerticalStretch(35);
+        sizePolicy6.setHeightForWidth(btnStop->sizePolicy().hasHeightForWidth());
+        btnStop->setSizePolicy(sizePolicy6);
         btnStop->setMinimumSize(QSize(35, 35));
         btnStop->setMaximumSize(QSize(35, 35));
 
@@ -470,10 +493,12 @@ public:
         UI3280Player->setWindowTitle(QApplication::translate("UI3280Player", "Form", nullptr));
         labIco->setText(QString());
         labTitle->setText(QString());
-        btn_Max->setText(QString());
+        client_btn->setText(QApplication::translate("UI3280Player", "Client", nullptr));
+        server_btn->setText(QApplication::translate("UI3280Player", "Server", nullptr));
         btn_Min->setText(QString());
         btn_Close->setText(QString());
         btn_Video->setText(QString());
+        btn_Max->setText(QString());
         label_4->setText(QApplication::translate("UI3280Player", "Search:", nullptr));
         btnSearch->setText(QString());
         label_3->setText(QApplication::translate("UI3280Player", "Now Playing:", nullptr));

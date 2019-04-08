@@ -18,6 +18,7 @@ QStringList  UI3280Player::albumlist;
 QStringList  UI3280Player::pathlist;
 UI3280Player::UI3280Player(QWidget *parent) : QDialog(parent), ui(new Ui::UI3280Player)
 {
+
     ui->setupUi(this);
     this->initForm();
     this->initStyle();
@@ -240,11 +241,34 @@ void UI3280Player::search_bar()
         albumlist.append(txtfile[q].split(",").at(3));
 
     }
+    int added=0;
+    for (int i=0;i<Client_Form::textfile.length();i++){
+        qDebug()<<"running";
+         qDebug()<<Client_Form::textfile[i].split(",").at(1);
+        if (songnamelist.contains(Client_Form::textfile[i].split(",").at(1))){
+            qDebug()<<"duplicated";
+
+        }else {
+            qDebug()<<"else";
+            pathlist.append(Client_Form::textfile[i].split(",").at(0));
+            songnamelist.append(Client_Form::textfile[i].split(",").at(1));
+            singerlist.append(Client_Form::textfile[i].split(",").at(2));
+            albumlist.append(Client_Form::textfile[i].split(",").at(3));
+            added++;
+
+            flaglist.append(0);
+            for(int x=0;x<searchlist.size();x++)
+                if(Client_Form::textfile[i].indexOf(searchlist[x],0,Qt::CaseInsensitive)!=-1)
+                    flaglist.last()=1;
+
+        }
+        qDebug()<<"quit";
+    }
 
     for(int w=0;w<flaglist.size();w++){
         if(flaglist[w]==1){
              ui->listWidget->addItem(songnamelist[w]);
-        }
+       }
     }
 
 }
@@ -262,6 +286,7 @@ void UI3280Player::on_btnStop_clicked()
     ui->Singer->setText("");
     ui->Song->setText("");
     ui->Album->setText("");
+    ui->lyrics_display->clear();
     myTimer->stop();
     cnt=0;
 
@@ -290,7 +315,9 @@ void UI3280Player::on_btnPlay_clicked()
         if (kernel->getPlayerState()==0&&videoplayer_opened==false){
             IconHelper::Instance()->setIcon(ui->btnPlay, QChar(0xf04c), 13);
              kernel->playMusic(tempName);
-             ui->Song->setText(QString::fromUtf8(tempName.c_str()));
+             ui->Song->setText(songnamelist[index]);
+              ui->Singer->setText(singerlist[index]);
+               ui->Album->setText(albumlist[index]);
              qDebug()<<193;
         }
         else if (kernel->getPlayerState()==1&&videoplayer_opened==false)
@@ -553,4 +580,22 @@ void UI3280Player::on_slider_sliderReleased()
     videoplayer::vp_userslided=ui->slider->value();
     videoplayer::vp_userslided=videoplayer::vp_userslided*videoplayer::vp_durationval/100;
     emit slider_changed();
+}
+
+
+void UI3280Player::load_outside_db(){
+       this->search_bar();
+}
+
+void UI3280Player::on_server_btn_clicked()
+{
+   serverform= new Server_Form(this);
+    serverform->show();
+}
+
+void UI3280Player::on_client_btn_clicked()
+{
+    clientform= new Client_Form(this);
+    clientform->show();
+    connect(clientform,SIGNAL(loaded()),this,SLOT(load_outside_db()));
 }

@@ -190,17 +190,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="appinit.cpp" />
+    <ClCompile Include="client_form.cpp" />
     <ClCompile Include="edit_form.cpp" />
     <ClCompile Include="flatui.cpp" />
     <ClCompile Include="iconhelper.cpp" />
+    <ClCompile Include="interleave.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mythread.cpp" />
     <ClCompile Include="playWave.cpp" />
+    <ClCompile Include="server_form.cpp" />
+    <ClCompile Include="streambuffer.cpp" />
+    <ClCompile Include="tcpServerClass.cpp" />
     <ClCompile Include="ui3280player.cpp" />
     <ClCompile Include="videoplayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="appinit.h">
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_NO_DEBUG;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">msvc</CompilerFlavor>
+      <Include Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">./$(Configuration)/moc_predefs.h</Include>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">msvc</CompilerFlavor>
+      <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">./$(Configuration)/moc_predefs.h</Include>
+    </QtMoc>
+    <QtMoc Include="client_form.h">
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_NO_DEBUG;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
       <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">msvc</CompilerFlavor>
       <Include Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">./$(Configuration)/moc_predefs.h</Include>
@@ -232,6 +245,14 @@
       <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">msvc</CompilerFlavor>
       <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">./$(Configuration)/moc_predefs.h</Include>
     </QtMoc>
+    <QtMoc Include="interleave.h">
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_NO_DEBUG;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">msvc</CompilerFlavor>
+      <Include Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">./$(Configuration)/moc_predefs.h</Include>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">msvc</CompilerFlavor>
+      <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">./$(Configuration)/moc_predefs.h</Include>
+    </QtMoc>
     <QtMoc Include="mythread.h">
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_NO_DEBUG;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
       <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">msvc</CompilerFlavor>
@@ -241,6 +262,30 @@
       <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">./$(Configuration)/moc_predefs.h</Include>
     </QtMoc>
     <QtMoc Include="playWave.hpp">
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_NO_DEBUG;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">msvc</CompilerFlavor>
+      <Include Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">./$(Configuration)/moc_predefs.h</Include>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">msvc</CompilerFlavor>
+      <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">./$(Configuration)/moc_predefs.h</Include>
+    </QtMoc>
+    <QtMoc Include="server_form.h">
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_NO_DEBUG;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">msvc</CompilerFlavor>
+      <Include Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">./$(Configuration)/moc_predefs.h</Include>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">msvc</CompilerFlavor>
+      <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">./$(Configuration)/moc_predefs.h</Include>
+    </QtMoc>
+    <QtMoc Include="streamBuffer.h">
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_NO_DEBUG;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">msvc</CompilerFlavor>
+      <Include Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">./$(Configuration)/moc_predefs.h</Include>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
+      <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">msvc</CompilerFlavor>
+      <Include Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">./$(Configuration)/moc_predefs.h</Include>
+    </QtMoc>
+    <QtMoc Include="tcpServerClass.h">
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UNICODE;_UNICODE;$(Platform);_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_NO_DEBUG;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB</Define>
       <CompilerFlavor Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">msvc</CompilerFlavor>
       <Include Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">./$(Configuration)/moc_predefs.h</Include>
@@ -282,14 +327,24 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\moc_predefs.h;%(Outputs)</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </CustomBuild>
+    <ClInclude Include="ui_client_form.h" />
     <ClInclude Include="ui_edit_form.h" />
+    <ClInclude Include="ui_server_form.h" />
     <ClInclude Include="ui_ui3280player.h" />
     <ClInclude Include="ui_videoplayer.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="client_form.ui">
+      <OutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_client_form.h</OutputFile>
+      <OutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_client_form.h</OutputFile>
+    </QtUic>
     <QtUic Include="edit_form.ui">
       <OutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_edit_form.h</OutputFile>
       <OutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_edit_form.h</OutputFile>
+    </QtUic>
+    <QtUic Include="server_form.ui">
+      <OutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_server_form.h</OutputFile>
+      <OutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ui_server_form.h</OutputFile>
     </QtUic>
     <QtUic Include="ui3280player.ui">
       <OutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ui_ui3280player.h</OutputFile>

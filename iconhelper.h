@@ -34,7 +34,7 @@ public:
 
         return self;
     }
-
+    int testsharing=0;
     void setIcon(QLabel *lab, QChar c, quint32 size = 9);
     void setIcon(QAbstractButton *btn, QChar c, quint32 size = 9);
     QPixmap getPixmap(const QString &color, QChar c, quint32 size = 9,quint32 pixWidth = 10, quint32 pixHeight = 10);

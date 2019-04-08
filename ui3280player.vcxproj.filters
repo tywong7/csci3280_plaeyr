@@ -50,6 +50,9 @@
     <ClCompile Include="appinit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="client_form.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="edit_form.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -59,6 +62,9 @@
     <ClCompile Include="iconhelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="interleave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,6 +72,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="playWave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="server_form.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="streambuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tcpServerClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ui3280player.cpp">
@@ -79,6 +94,9 @@
     <QtMoc Include="appinit.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="client_form.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <QtMoc Include="edit_form.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -88,10 +106,22 @@
     <QtMoc Include="iconhelper.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="interleave.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
     <QtMoc Include="mythread.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="playWave.hpp">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="server_form.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="streamBuffer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="tcpServerClass.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ui3280player.h">
@@ -102,6 +132,10 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
+    
+    
+    
+    
     
     
     
@@ -126,7 +160,19 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    <ClInclude Include="ui_client_form.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
     <ClInclude Include="ui_edit_form.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_server_form.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="ui_ui3280player.h">
@@ -137,7 +183,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="client_form.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
     <QtUic Include="edit_form.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="server_form.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ui3280player.ui">

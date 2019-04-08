@@ -16,7 +16,12 @@ SOURCES     += main.cpp \
     ui3280player.cpp \
     videoplayer.cpp \
     mythread.cpp \
-    playWave.cpp
+    playWave.cpp \
+    server_form.cpp \
+    client_form.cpp \
+    interleave.cpp \
+    streambuffer.cpp \
+    tcpServerClass.cpp
 SOURCES     += iconhelper.cpp
 SOURCES     += flatui.cpp
 SOURCES     += appinit.cpp
@@ -28,7 +33,12 @@ HEADERS     += \
     ui3280player.h \
     videoplayer.h \
     mythread.h \
-    playWave.hpp
+    playWave.hpp \
+    server_form.h \
+    client_form.h \
+    interleave.h \
+    streamBuffer.h \
+    tcpServerClass.h
 HEADERS     += iconhelper.h
 HEADERS     += flatui.h
 HEADERS     += appinit.h
@@ -37,7 +47,9 @@ HEADERS     +=
 FORMS       += \
     edit_form.ui \
     ui3280player.ui \
-    videoplayer.ui
+    videoplayer.ui \
+    server_form.ui \
+    client_form.ui
 
 RESOURCES   += main.qrc \
     main.qrc

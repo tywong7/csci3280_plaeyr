@@ -5,6 +5,8 @@
 #include<QListWidget>
 #include "edit_form.h"
 #include "videoplayer.h"
+#include "server_form.h"
+#include "client_form.h"
 #include <QSlider>
 #include <QString>
 #include <QtCore>
@@ -45,7 +47,9 @@ protected:
 private:
     Ui::UI3280Player *ui;
     Edit_Form *editform;
+	Server_Form *serverform;
     videoplayer *videoplayer1;
+    Client_Form *clientform;
     QTimer *myTimer;
     int cnt=0,test_ff=0;
     int time_value[100];
@@ -64,7 +68,7 @@ private slots:
     void showTime();
 
 private slots:
-
+    void load_outside_db();
     void on_btn_Min_clicked();
     void on_btn_Max_clicked();
     void on_btn_Close_clicked();
@@ -84,7 +88,9 @@ private slots:
     void vi_stop();
     void on_slider_sliderReleased();
     void on_doneWork();
+    void on_server_btn_clicked();
 
+    void on_client_btn_clicked();
 
 signals:
     void btnPlay_clicked();
